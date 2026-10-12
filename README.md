@@ -144,6 +144,24 @@ python -m http.server 8765
 9. 시공·시행·신탁·보증사 로고 원본(AI·SVG). 지금 푸터에는 글자로만 들어가 있다.
 10. 사업개요 수치 — 대지면적, 연면적, 주차대수, 입주 예정 시기
 
+## 저장소와 배포
+
+- 저장소: https://github.com/Leechanhee123/iaan-dongjak (private)
+- **아직 배포된 주소는 없다.** GitHub Pages 를 켜 보았으나 현재 요금제에서는 private 저장소의 Pages 를
+  쓸 수 없어 거절되었다(GitHub 응답: "Your current plan does not support GitHub Pages for this repository").
+
+배포하는 방법은 셋 중 하나다. `site/` 폴더만 올리면 되고, 모든 링크가 상대 경로라 하위 주소에서도 그대로 동작한다.
+
+1. **GitHub Pro 로 올리거나 저장소를 public 으로 바꾼 뒤 GitHub Pages**
+   ```bash
+   git subtree push --prefix site origin gh-pages
+   gh api -X POST repos/Leechanhee123/iaan-dongjak/pages -f "source[branch]=gh-pages" -f "source[path]=/"
+   ```
+   사이트를 고칠 때마다 첫 줄을 다시 실행하면 반영된다.
+   Pages 주소는 저장소가 private 여도 누구나 볼 수 있다.
+2. **저장소는 private 로 두고 Vercel·Cloudflare Pages·Netlify 에 연결** — 내보낼 폴더를 `site` 로 지정한다. 빌드 명령은 없다.
+3. **일반 웹호스팅(카페24 등)** — `site/` 안의 파일을 그대로 올린다.
+
 ## 넣지 않은 것
 
 - 리플렛의 공급가 표·납부 일정·계좌번호(참고 사이트도 싣지 않는다)
