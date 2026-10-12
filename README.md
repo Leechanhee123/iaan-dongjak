@@ -146,21 +146,29 @@ python -m http.server 8765
 
 ## 저장소와 배포
 
-- 저장소: https://github.com/Leechanhee123/iaan-dongjak (private)
-- **아직 배포된 주소는 없다.** GitHub Pages 를 켜 보았으나 현재 요금제에서는 private 저장소의 Pages 를
-  쓸 수 없어 거절되었다(GitHub 응답: "Your current plan does not support GitHub Pages for this repository").
+- 저장소: https://github.com/Leechanhee123/iaan-dongjak (지금은 public)
+- 사이트: https://leechanhee123.github.io/iaan-dongjak/ (GitHub Pages)
 
-배포하는 방법은 셋 중 하나다. `site/` 폴더만 올리면 되고, 모든 링크가 상대 경로라 하위 주소에서도 그대로 동작한다.
+Pages 는 `gh-pages` 브랜치를 내보낸다. 이 브랜치에는 `site/` 안의 파일만 들어 있다.
 
-1. **GitHub Pro 로 올리거나 저장소를 public 으로 바꾼 뒤 GitHub Pages**
-   ```bash
-   git subtree push --prefix site origin gh-pages
-   gh api -X POST repos/Leechanhee123/iaan-dongjak/pages -f "source[branch]=gh-pages" -f "source[path]=/"
-   ```
-   사이트를 고칠 때마다 첫 줄을 다시 실행하면 반영된다.
-   Pages 주소는 저장소가 private 여도 누구나 볼 수 있다.
-2. **저장소는 private 로 두고 Vercel·Cloudflare Pages·Netlify 에 연결** — 내보낼 폴더를 `site` 로 지정한다. 빌드 명령은 없다.
-3. **일반 웹호스팅(카페24 등)** — `site/` 안의 파일을 그대로 올린다.
+**사이트를 고친 뒤 반영하는 순서**
+
+```bash
+python tools/build_pages.py                      # site/*.html 다시 만들기
+git add -A && git commit -m "..." && git push    # main 에 올리기
+git subtree push --prefix site origin gh-pages   # 사이트에 반영 (1~2분 걸림)
+```
+
+마지막 줄을 빼먹으면 저장소만 바뀌고 사이트는 그대로다.
+
+**private 으로 되돌릴 때**
+
+현재 요금제(무료)에서는 private 저장소의 Pages 를 쓸 수 없다. 저장소를 private 으로 바꾸면 위 사이트 주소는 내려간다.
+그때는 아래 중 하나로 옮긴다. `site/` 폴더만 올리면 되고, 모든 링크가 상대 경로라 어느 주소에서든 그대로 동작한다.
+
+1. GitHub Pro 로 올린다 — private 그대로 Pages 를 쓸 수 있다.
+2. Vercel·Cloudflare Pages·Netlify 에 저장소를 연결한다 — 내보낼 폴더를 `site` 로 지정한다. 빌드 명령은 없다.
+3. 일반 웹호스팅(카페24 등)에 `site/` 안의 파일을 그대로 올린다.
 
 ## 넣지 않은 것
 
