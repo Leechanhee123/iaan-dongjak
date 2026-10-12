@@ -628,6 +628,22 @@ h2 b { font-weight: 700; color: var(--rose-deep); }
 .community-plan p { color: var(--ink-soft); }
 @media (min-width: 64rem) { .community-plan { grid-template-columns: 7fr 5fr; gap: 3.5rem; } }
 
+/* 인테리어 사진 모음: 색 면이 양옆 끝까지 닿는 세로로 긴 한 장이라 좁은 화면에서는 화면 끝까지 붙인다.
+   원본이 가로 955px 이라 40rem 보다 크게 키우지 않는다 */
+.rooms-cut { margin-inline: calc(var(--gutter) * -1); }
+.rooms-cut img { width: 100%; }
+.rooms-cut .notes { margin-inline: var(--gutter); }
+@media (min-width: 40rem) {
+  .rooms-cut { max-width: 40rem; margin-inline: auto; }
+  .rooms-cut .notes { margin-inline: 0; }
+}
+/* 넓은 화면: 긴 사진을 내려 보는 동안 제목이 옆에 붙어 따라온다 */
+@media (min-width: 64rem) {
+  .rooms-grid { display: grid; grid-template-columns: 5fr 6fr; gap: 5rem; align-items: start; }
+  .rooms .sec-head { position: sticky; top: calc(var(--header-h) + 2.5rem); margin-bottom: 0; }
+  .rooms-cut { max-width: none; margin-inline: 0; }
+}
+
 .interior { background: var(--paper); }
 .options { display: grid; gap: 1.5rem; padding: clamp(1.25rem, 4vw, 3rem); background: #fff; }
 .options img { width: 100%; max-width: 34rem; margin-inline: auto; }
