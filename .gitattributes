@@ -1,0 +1,2 @@
+# 윈도우에서 받아도 줄바꿈을 LF 로 유지한다 (build_pages.py 가 파일 내용으로 ?v= 값을 만들기 때문)
+* text=auto eol=lf
