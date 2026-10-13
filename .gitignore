@@ -5,5 +5,8 @@
 # 브라우저 점검 도구가 남기는 임시 폴더
 .playwright-mcp/
 
+# 코드 탐색 도구(codegraph)의 색인
+.codegraph/
+
 __pycache__/
 *.pyc

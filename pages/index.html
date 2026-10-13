@@ -132,8 +132,8 @@
       </a>
     </div>
 
-    <!-- action 에 접수 URL(예: Google Apps Script 웹앱 /exec 주소)을 넣으면 접수가 시작된다. 접수 서버는 JSON {"ok": true} 로 응답해야 한다 -->
-    <form class="lead-form reveal reveal--slide" id="lead-form" action="" method="post">
+    <!-- action 은 구글 스프레드시트에 붙인 Apps Script 웹 앱(tools/lead_intake.gs)의 /exec 주소다. 접수 서버는 JSON {"ok": true} 로 응답해야 한다 -->
+    <form class="lead-form reveal reveal--slide" id="lead-form" action="https://script.google.com/macros/s/AKfycbw9KOTWnsP6UxMr7igYgZ_mPnAoDpQLA3IwdU3qG81MhwDuR2n2TDWQc0sVP_QShTwL/exec" method="post">
       <div class="field">
         <label for="lead-name">성함 <span class="req">필수</span></label>
         <input id="lead-name" name="name" type="text" autocomplete="name" maxlength="30" required>
