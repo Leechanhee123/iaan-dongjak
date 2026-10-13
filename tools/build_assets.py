@@ -83,11 +83,12 @@ def build_photos():
     save(aerial.crop((0, 0, 2110, aerial.height)), "premium-aerial", [2110, 1100])
     options = Image.open(src("KakaoTalk_20251222_135459382_06.jpg")).convert("RGB")
     save(options.crop((140, 225, 1165, 815)), "interior-options", [1025, 640], quality=86)
-    # 인테리어 사진 모음(세로로 긴 한 장, 가로 955px). AVIF 로 받았는데 Pillow 11.0 은 AVIF 를 못 열어서
-    # ffmpeg -i 인테리어.avif -map 0:0 -frames:v 1 인테리어.png 로 풀어 둔 것을 읽는다.
-    # 맨 위 제목 글자는 페이지에서 글로 쓰므로 첫 사진(y=198)부터, 아래 여백(y>2549)도 뺀다.
-    rooms = Image.open(src("인테리어.png")).convert("RGB")
-    save(rooms.crop((0, 198, rooms.width, 2549)), "interior-rooms", [955, 640], quality=86)
+    # 인테리어 사진 모음(세로로 긴 한 장). 받은 것은 가로 955px AVIF 한 장뿐이라 두 단계로 손봐 둔 것을 읽는다.
+    #   1) Pillow 11.0 은 AVIF 를 못 열어서: ffmpeg -i 인테리어.avif -map 0:0 -frames:v 1 인테리어.png
+    #   2) 그대로는 흐려서 2배로 키움(Real-ESRGAN): python tools/upscale.py <RealESRGAN_x2plus.pth> 인테리어.png 인테리어_x2.png
+    # 맨 위 제목 글자는 페이지에서 글로 쓰므로 첫 사진(원본 y=198)부터, 아래 여백(y>2549)도 뺀다. 좌표는 2배.
+    rooms = Image.open(src("인테리어_x2.png")).convert("RGB")
+    save(rooms.crop((0, 396, rooms.width, 5098)), "interior-rooms", [1280, 955, 640], quality=86)
     terrain = Image.open(src("KakaoTalk_20251222_135459382_09.jpg")).convert("RGB")
     save(terrain.crop((290, 930, 3650, 2500)), "intro-terrain", [2000, 1000])
 
