@@ -629,32 +629,35 @@ h2 b { font-weight: 700; color: var(--rose-deep); }
 @media (min-width: 64rem) { .community-plan { grid-template-columns: 7fr 5fr; gap: 3.5rem; } }
 
 /* 인테리어 사진 모음: 색 면이 양옆 끝까지 닿는 세로로 긴 한 장이라 좁은 화면에서는 화면 끝까지 붙인다.
-   원본이 가로 955px 이라 40rem 보다 크게 키우지 않는다 */
+   원본이 가로 955px 이고(2배로 키운 것을 쓴다) 40rem 보다 크게 키우지 않는다 */
 .rooms-cut { margin-inline: calc(var(--gutter) * -1); }
 .rooms-cut img { width: 100%; }
 .rooms-cut .notes { margin-inline: var(--gutter); }
-@media (min-width: 40rem) {
-  .rooms-cut { max-width: 40rem; margin-inline: auto; }
-  .rooms-cut .notes { margin-inline: 0; }
-}
-/* 넓은 화면: 긴 사진을 내려 보는 동안 제목이 옆에 붙어 따라온다 */
-@media (min-width: 64rem) {
-  .rooms-grid { display: grid; grid-template-columns: 5fr 6fr; gap: 5rem; align-items: start; }
-  .rooms .sec-head { position: sticky; top: calc(var(--header-h) + 2.5rem); margin-bottom: 0; }
-  .rooms-cut { max-width: none; margin-inline: 0; }
-}
-
-.interior { background: var(--paper); }
-.options { display: grid; gap: 1.5rem; padding: clamp(1.25rem, 4vw, 3rem); background: #fff; }
-.options img { width: 100%; max-width: 34rem; margin-inline: auto; }
+/* 옵션품목: 좁은 화면에서는 사진 모음 아래에 온다. 가전 사진은 바탕이 흰색이라 화면 끝까지 붙이지 않는다 */
+.options { margin-top: clamp(3rem, 7vw, 5.5rem); }
+.options .sec-head { margin-bottom: 1.5rem; }
+.options-cut { margin-top: 2rem; }
+.options-cut img { width: 100%; }
+.options-cut .notes { margin-top: 1.25rem; }
 .option-list { display: flex; flex-wrap: wrap; gap: 0.4rem; }
 .option-list li { padding: 0.4rem 0.9rem; background: var(--mist); font-size: 0.9375rem; font-weight: 500; }
-.options .notes { margin-top: 1.25rem; }
+@media (min-width: 40rem) {
+  .rooms-cut, .options-cut { max-width: 40rem; margin-inline: auto; }
+  .rooms-cut .notes { margin-inline: 0; }
+}
+/* 넓은 화면: 오른쪽 칸은 긴 사진 한 장, 왼쪽 칸은 제목과 그 바로 아래 옵션품목.
+   둘째 줄을 1fr 로 두어야 긴 사진의 남는 높이가 제목과 옵션품목 사이를 벌리지 않는다 */
+@media (min-width: 64rem) {
+  .rooms-grid { display: grid; grid-template: auto 1fr / 5fr 6fr; gap: 3.5rem 5rem; align-items: start; }
+  .rooms-grid > .sec-head { margin-bottom: 0; }
+  .rooms-cut { grid-column: 2; grid-row: 1 / span 2; max-width: none; margin-inline: 0; }
+  .options { grid-column: 1; margin-top: 0; }
+  .options-cut { max-width: none; margin-inline: 0; }
+}
 
 @media (min-width: 64rem) {
   .community-grid { grid-template-columns: 5fr 6fr; gap: 5rem; align-items: start; }
   .facilities li { grid-template-columns: 11rem 1fr; gap: 1.5rem; align-items: baseline; }
-  .options { grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: center; }
 }
 
 /* ── 푸터 ───────────────────────────────────── */
@@ -760,7 +763,11 @@ h2 b { font-weight: 700; color: var(--rose-deep); }
   .reveal--wipe { overflow: hidden; }
   html.io .reveal--wipe.is-in img, html.io .hub-tile.is-in img { animation: settle 1.7s var(--ease) var(--d, 0ms) backwards; }
   html.io .place.is-in > img { animation: wipe 1.25s var(--ease) calc(var(--d, 0ms) + 0.15s) backwards; }
-  html.io .options.is-in > img { animation: zoom-in 1.1s var(--ease) calc(var(--d, 0ms) + 0.15s) backwards; }
+  /* 옵션품목: 품목이 하나씩 톡 튀어나오고, 가전 사진은 커지며 자리 잡는다 */
+  html.io .option-list.is-in > li {
+    animation: pop 0.55s cubic-bezier(0.3, 1.5, 0.5, 1) calc(var(--d, 0ms) + 0.2s + var(--i, 0) * 90ms) backwards;
+  }
+  html.io .options-cut.is-in > img { animation: zoom-in 1.1s var(--ease) calc(var(--d, 0ms) + 0.15s) backwards; }
 
   /* 제목: main.js 가 어절마다 <span class="w"><span> 으로 감싸 두면 아래에서 올라온다 */
   .w { display: inline-block; clip-path: inset(-0.1em -0.1em -0.2em -0.1em); }
