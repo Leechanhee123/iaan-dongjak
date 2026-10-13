@@ -106,16 +106,25 @@ button, input, select { font: inherit; color: inherit; }
 .btn--ghost { background: rgb(255 255 255 / 0.14); color: #fff; font-family: var(--font-num); font-size: 1.15em; }
 .btn--ghost:hover { background: #fff; color: var(--midnight); }
 .btn--ghost:focus-visible { outline-color: var(--sun); }
-.btn--sm { min-height: 2.5rem; padding: 0 1.15rem; font-size: 0.9rem; background: #fff; color: var(--midnight); }
-.btn--sm:hover { background: var(--sun); }
-.is-solid .btn--sm { background: var(--midnight); color: #fff; }
-.is-solid .btn--sm:hover { background: var(--seobu); }
 .btn--ink { background: var(--midnight); color: #fff; }
 .btn--ink:hover { background: var(--seobu); }
 /* 어두운 버튼 위에서는 포커스 테두리를 밝게 */
-.btn--ink:focus-visible, .is-solid .btn--sm:focus-visible { outline-color: var(--sun); }
+.btn--ink:focus-visible { outline-color: var(--sun); }
 .btn--block { width: 100%; }
 .btn[disabled] { opacity: 0.55; cursor: progress; }
+
+/* 관심고객 등록으로 가는 버튼(헤더·서브페이지 끝·모바일 하단 바). 어디서든 같은 노란색이고,
+   빛이 한 번씩 훑고 지나가며 화살표가 움직여 눈에 띈다(움직임은 아래 '모션'에 있고 '동작 줄이기'면 멈춘다) */
+.cta { position: relative; isolation: isolate; overflow: hidden; background: var(--sun); color: var(--midnight); text-shadow: none; }
+.cta::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(105deg, transparent 38%, rgb(255 255 255 / 0.85) 50%, transparent 62%);
+  transform: translateX(-100%);
+}
+.cta::after { content: "\2192"; font-family: var(--font-num); }
+.btn.cta:hover { background: var(--midnight); color: var(--sun); }
+.btn.cta:focus-visible { outline-color: var(--midnight); }
+.btn.cta:hover:focus-visible { outline-color: var(--sun); }
 
 .tag {
   display: inline-block; padding: 0.3em 1.3em 0.35em 0.9em;
@@ -178,6 +187,7 @@ button, input, select { font: inherit; color: inherit; }
 .header-tel svg { width: 2.5rem; height: 2.5rem; padding: 0.6rem; border-radius: 50%; background: rgb(255 255 255 / 0.16); }
 .is-solid .header-tel svg { background: var(--mist); }
 .header-tel span, .header-cta { display: none; }
+.header-cta { min-height: 2.75rem; padding: 0 1.4rem; font-size: 1rem; }
 
 .menu-toggle {
   display: grid; place-items: center; width: 2.75rem; height: 2.75rem;
@@ -279,10 +289,9 @@ button, input, select { font: inherit; color: inherit; }
   .route ol a:not([aria-current]):hover { color: var(--amber); }
   .is-solid .route ol a:not([aria-current]):hover { color: var(--line7); }
 }
-@media (min-width: 82rem) {
-  .header-cta { display: inline-flex; }
-  .route li { flex-basis: 6.25rem; }
-}
+/* 등록 버튼은 메뉴·전화번호와 나란히 들어갈 폭(1280px)부터, 역 간격은 그보다 넓을 때만 벌린다 */
+@media (min-width: 80rem) { .header-cta { display: inline-flex; } }
+@media (min-width: 86rem) { .route li { flex-basis: 6.25rem; } }
 
 /* ── 섹션 공통 ──────────────────────────────── */
 .section { padding-block: var(--space-section); }
@@ -368,6 +377,7 @@ h2 b { font-weight: 700; color: var(--rose-deep); }
 }
 .next-stop strong::after { content: "\2192"; font-family: var(--font-num); }
 .next-stop:hover strong { gap: 1.4rem; color: var(--seobu); }
+.page-foot .cta { min-height: 4rem; padding: 0 2.5rem; font-size: clamp(1.1rem, 1rem + 0.5vw, 1.3rem); }
 
 /* ── 사업개요 ───────────────────────────────── */
 .overview-top { display: grid; gap: clamp(2.5rem, 6vw, 5rem); }
@@ -707,6 +717,7 @@ h2 b { font-weight: 700; color: var(--rose-deep); }
 @keyframes pop { from { transform: scale(0); } }
 @keyframes ping { from { opacity: 0.7; transform: scale(1); } to { opacity: 0; transform: scale(3.2); } }
 @keyframes nudge { 50% { transform: translateX(0.5rem); } }
+@keyframes sheen { 0%, 70% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
 @keyframes dock-in { from { transform: translateY(100%); } }
 @keyframes drift { from { translate: 0 -3.5%; } to { translate: 0 3.5%; } }
 @keyframes failsafe { to { opacity: 1; } }
@@ -736,6 +747,10 @@ h2 b { font-weight: 700; color: var(--rose-deep); }
 
   /* '다음' 화살표는 계속 살짝 움직인다 */
   .next-stop strong::after { animation: nudge 1.8s ease-in-out infinite; }
+
+  /* 관심고객 등록 버튼: 4.5초마다 빛이 훑고 지나가고 화살표가 움직인다 */
+  .cta::before { animation: sheen 4.5s ease-in-out infinite; }
+  .cta::after { animation: nudge 1.8s ease-in-out infinite; }
 }
 @media (prefers-reduced-motion: no-preference) and (min-width: 70rem) {
   .route ol a[aria-current]::after { left: 50%; top: 0.6rem; width: 0.7rem; height: 0.7rem; margin: 0 0 0 -0.35rem; }
