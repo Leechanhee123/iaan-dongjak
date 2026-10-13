@@ -30,6 +30,8 @@ def src(*parts):
 
 
 def save(im, name, widths, quality=82):
+    """폭마다 webp 로 저장한다. 화면을 꽉 채우는 그림은 가운데 크기(1400~1600)도 둔다:
+    폰은 화면 폭 390~430px 에 3배 밀도라 1170~1290px 이 필요한데, 없으면 제일 큰 파일을 받아 간다."""
     for w in widths:
         w = min(w, im.width)
         out = im.resize((w, round(im.height * w / im.width)), Image.LANCZOS)
@@ -78,9 +80,9 @@ def build_photos():
     og = hero.crop((900, 500, 7400, 3913)).resize((1200, 630), Image.LANCZOS)
     og.save(os.path.join(OUT, "common-og.jpg"), "JPEG", quality=84, optimize=True)
 
-    save(Image.open(src("신상도 힐스더원 조감도 0416.jpg")).convert("RGB"), "complex-birdseye", [2000, 1000])
+    save(Image.open(src("신상도 힐스더원 조감도 0416.jpg")).convert("RGB"), "complex-birdseye", [2000, 1400, 1000])
     aerial = Image.open(src("KakaoTalk_20251222_135459382_05.jpg")).convert("RGB")
-    save(aerial.crop((0, 0, 2110, aerial.height)), "premium-aerial", [2110, 1100])
+    save(aerial.crop((0, 0, 2110, aerial.height)), "premium-aerial", [2110, 1400, 1100])
     options = Image.open(src("KakaoTalk_20251222_135459382_06.jpg")).convert("RGB")
     save(options.crop((140, 225, 1165, 815)), "interior-options", [1025, 640], quality=86)
     # 인테리어 사진 모음(세로로 긴 한 장). 받은 것은 가로 955px AVIF 한 장뿐이라 두 단계로 손봐 둔 것을 읽는다.
@@ -90,14 +92,14 @@ def build_photos():
     rooms = Image.open(src("인테리어_x2.png")).convert("RGB")
     save(rooms.crop((0, 396, rooms.width, 5098)), "interior-rooms", [1280, 955, 640], quality=86)
     terrain = Image.open(src("KakaoTalk_20251222_135459382_09.jpg")).convert("RGB")
-    save(terrain.crop((290, 930, 3650, 2500)), "intro-terrain", [2000, 1000])
+    save(terrain.crop((290, 930, 3650, 2500)), "intro-terrain", [2000, 1400, 1000])
 
 
 def build_pdf_crops(leaflet, flyer):
     print("pdf crops")
     # 지도는 흰 바탕인 리플렛 2면에서 뽑는다 (전단 2면 지도는 남색 바탕 위에 얹혀 있어 흰 페이지에 안 맞는다).
     # 확대 지도(detail)는 같은 그림 오른쪽 아래의 상세도 부분.
-    save(pdf_clip(leaflet[1], (23.4, 106.5, 584.2, 539.6), 400), "location-map", [2400, 1200], quality=84)
+    save(pdf_clip(leaflet[1], (23.4, 106.5, 584.2, 539.6), 400), "location-map", [2400, 1600, 1200], quality=84)
     save(pdf_clip(leaflet[1], (354.4, 370.2, 582.9, 538.3), 600), "location-map-detail", [1600, 800], quality=84)
     # 전단 1면의 역 안내 기둥(상도역·신상도역) 원본 그림: 1면에 박힌 큰 그림 가운데 세로로 길쭉한 것(1376x2121).
     tall = [i for i in flyer[0].get_image_info(xrefs=True) if i["xref"] and i["width"] > 500 and i["height"] > i["width"] * 1.4]

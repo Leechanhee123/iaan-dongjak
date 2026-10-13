@@ -134,11 +134,14 @@ button, input, select { font: inherit; color: inherit; }
 .tag--red { background: var(--seobu); }
 
 .text-link {
+  position: relative;
   display: inline-flex; align-items: center; gap: 0.4em;
   font-size: 0.9rem; font-weight: 700;
   border-bottom: 1px solid currentColor; padding-bottom: 0.1em;
   transition: gap var(--fast), color var(--fast);
 }
+/* 글자만 한 줄이라 손가락으로 누르기 좁다. 보이는 모양은 그대로 두고 누를 수 있는 높이만 44px 쯤으로 넓힌다 */
+.text-link::before { content: ""; position: absolute; inset: -0.55rem 0; }
 .text-link::after { content: "→"; font-family: var(--font-num); }
 .text-link:hover { gap: 0.75em; color: var(--seobu); }
 
@@ -315,7 +318,7 @@ h2 b { font-weight: 700; color: var(--rose-deep); }
 .cut:hover img { transform: scale(1.04); }
 .cut figcaption {
   position: absolute; right: 0; bottom: 0; padding: 0.1rem 0.45rem 0.15rem;
-  background: rgb(31 38 52 / 0.78); color: #fff; font-size: 0.625rem; line-height: 1.5;
+  background: rgb(31 38 52 / 0.78); color: #fff; font-size: 0.6875rem; line-height: 1.5;
 }
 
 /* 확대 링크 */
@@ -596,7 +599,7 @@ h2 b { font-weight: 700; color: var(--rose-deep); }
 .unit-plan--tall .plan { max-width: 34rem; margin-inline: auto; }
 .plan-dot { position: absolute; inset: 0; opacity: 0; transition: opacity 0.35s; }
 
-.switch { display: inline-flex; align-items: center; gap: 0.65rem; cursor: pointer; font-size: 0.9375rem; font-weight: 500; user-select: none; }
+.switch { display: inline-flex; align-items: center; gap: 0.65rem; min-height: 2.75rem; cursor: pointer; font-size: 0.9375rem; font-weight: 500; user-select: none; }
 .switch::before {
   content: ""; width: 2.75rem; height: 1.5rem; border-radius: 99px;
   background: radial-gradient(circle at 0.75rem 50%, #fff 0.5rem, transparent 0.53rem) #b9c3cd;
