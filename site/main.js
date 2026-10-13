@@ -52,6 +52,16 @@ function initLeadForm(form) {
   form.elements.visit_date.min = new Date(now - now.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
 }
 
+/* 팝업: data-open 에 적힌 id 의 <dialog> 를 띄운다. 닫기는 팝업 안의 확인 버튼(form method=dialog)과 Esc 가 기본으로 맡고,
+   여기서는 바깥(어두운 배경)을 눌러도 닫히게만 한다 — 팝업 안쪽은 전부 자식 요소라 dialog 자신이 눌렸다면 바깥이다 */
+document.querySelectorAll('[data-open]').forEach((opener) => {
+  const dialog = document.getElementById(opener.dataset.open);
+  opener.addEventListener('click', () => dialog.showModal());
+  dialog.addEventListener('click', (event) => {
+    if (event.target === dialog) dialog.close();
+  });
+});
+
 /* 모바일 메뉴 */
 const header = document.getElementById('site-header');
 const route = document.getElementById('route');

@@ -77,7 +77,7 @@ def page_foot(i):
 <aside class="page-foot" aria-label="다음 안내">
   <div class="wrap page-foot-grid reveal">
     <a class="next-stop" href="{next_href}"><span>다음</span><strong>{next_name}</strong></a>
-    <a class="btn btn--ink" href="index.html#register">관심고객 등록</a>
+    <a class="btn cta" href="index.html#register">관심고객 등록</a>
   </div>
 </aside>
 """

@@ -161,7 +161,12 @@
 .consent { padding: 1rem; background: var(--mist); font-size: 0.8125rem; }
 .check { display: flex; gap: 0.6rem; align-items: flex-start; cursor: pointer; font-size: 0.9375rem; font-weight: 700; color: var(--midnight); }
 .check input { flex: none; width: 1.25rem; height: 1.25rem; margin: 0.2rem 0 0; accent-color: var(--midnight); }
-.consent ol { margin-top: 0.75rem; padding-left: 1.1rem; list-style: decimal; color: var(--ink-soft); line-height: 1.6; }
+/* 체크박스 글자 시작점에 맞춰 들여 쓴다 (체크박스 1.25rem + 간격 0.6rem) */
+.consent-more {
+  margin: 0.5rem 0 0 1.85rem; padding: 0 0 0.1em; border: 0; border-bottom: 1px solid currentColor; background: none; cursor: pointer;
+  font-weight: 700; color: var(--steel); transition: color var(--fast);
+}
+.consent-more:hover { color: var(--seobu); }
 
 .form-status { min-height: 1.5em; font-size: 0.9375rem; font-weight: 700; }
 .form-status[data-state="ok"] { color: #1d6b3a; }
@@ -171,6 +176,27 @@
   .register-grid { grid-template-columns: 1fr 30rem; gap: 5rem; align-items: start; }
   .register-copy { position: sticky; top: calc(var(--header-h) + 3rem); }
 }
+
+/* ── 개인정보 안내 팝업 ──────────────────────
+   등록 폼과 같은 모양(흰 판, 오른쪽 위 모서리를 자름). 글이 길어 가운데만 스크롤되고 제목과 확인 버튼은 늘 보인다 */
+.notice {
+  --pad: clamp(1.25rem, 4vw, 2rem);
+  width: min(100% - var(--gutter) * 2, 34rem); max-height: min(100% - 3rem, 44rem);
+  padding: 0; border: 0; background: #fff; color: var(--ink);
+  clip-path: polygon(0 0, calc(100% - 2rem) 0, 100% 2rem, 100% 100%, 0 100%);
+  transition: opacity 0.3s, transform 0.5s var(--ease);
+}
+.notice[open] { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; }
+@starting-style { .notice[open] { opacity: 0; transform: translateY(1.5rem); } }
+.notice::backdrop { background: rgb(0 30 49 / 0.72); }
+.notice-title { padding: 1.75rem 3rem 1.1rem var(--pad); border-bottom: 1px solid var(--sky); font-size: 1.5rem; color: var(--midnight); }
+.notice-body { overflow-y: auto; overscroll-behavior: contain; padding: 0 var(--pad) 1.5rem; font-size: 0.875rem; color: var(--ink-soft); }
+.notice-body h3 { margin: 1.4rem 0 0.35rem; font-size: 0.9375rem; font-weight: 700; letter-spacing: -0.02em; color: var(--midnight); }
+.notice-body ul li { position: relative; padding-left: 0.85rem; }
+.notice-body ul li::before { content: ""; position: absolute; left: 0; top: 0.72em; width: 0.3rem; height: 0.3rem; background: var(--rose); }
+.notice-body ol { margin-top: 0.5rem; padding-left: 0.85rem; border-left: 2px solid var(--mist); }
+.notice-refuse { margin-top: 1.5rem; padding: 0.9rem 1rem; background: var(--mist); color: var(--ink); }
+.notice-foot { padding: 1rem var(--pad); border-top: 1px solid var(--sky); }
 
 /* ── 일곱 페이지로 가는 안내판 ──────────────── */
 .hub-grid { display: grid; gap: 0.75rem; }
