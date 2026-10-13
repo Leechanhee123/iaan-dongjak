@@ -39,10 +39,12 @@
 .hero-meta strong { margin-left: 0.4em; font-weight: 700; }
 .hero-meta small { font-size: 0.7em; margin-left: 0.15em; opacity: 0.85; }
 .hero-cta { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: clamp(1.25rem, 3.5vh, 2.25rem); }
+/* 폰: 두 버튼이 한 줄을 반씩 나눠 쓴다. 그대로 두면 360px 폭에서 두 줄로 밀려 크기가 제각각이 된다 */
+@media (max-width: 29.99rem) { .hero-cta .btn { flex: 1 1 0; padding-inline: 0.75rem; white-space: nowrap; } }
 
 .hero-note {
   position: absolute; right: var(--gutter); bottom: 0.6rem; left: 8.75rem;
-  font-size: 0.625rem; line-height: 1.4; text-align: right; color: rgb(255 255 255 / 0.75);
+  font-size: 0.6875rem; line-height: 1.4; text-align: right; color: rgb(255 255 255 / 0.75);
 }
 
 /* 역 기둥 — 전단의 상도역 / 신상도역 사인 */
@@ -95,7 +97,7 @@
   .pylon-badge { width: 2.7rem; font-size: 0.625rem; }
   .pylon-name { font-size: 1.4rem; }
   .pylon-note { font-size: 0.625rem; }
-  .hero-note { left: 12rem; font-size: 0.6875rem; }
+  .hero-note { left: 12rem; }
   .plans { grid-template-columns: repeat(4, 1fr); padding-block: 0; }
   .plans > div, .plans > div:nth-child(odd), .plans > div:nth-child(even) {
     padding: 1.6rem 1.5rem; border-top: 0; border-left: 1px solid rgb(255 255 255 / 0.14);
@@ -163,9 +165,10 @@
 .check input { flex: none; width: 1.25rem; height: 1.25rem; margin: 0.2rem 0 0; accent-color: var(--midnight); }
 /* 체크박스 글자 시작점에 맞춰 들여 쓴다 (체크박스 1.25rem + 간격 0.6rem) */
 .consent-more {
-  margin: 0.5rem 0 0 1.85rem; padding: 0 0 0.1em; border: 0; border-bottom: 1px solid currentColor; background: none; cursor: pointer;
+  position: relative; margin: 0.5rem 0 0 1.85rem; padding: 0 0 0.1em; border: 0; border-bottom: 1px solid currentColor; background: none; cursor: pointer;
   font-weight: 700; color: var(--steel); transition: color var(--fast);
 }
+.consent-more::before { content: ""; position: absolute; inset: -0.6rem -0.5rem; } /* 누르는 영역만 넓힌다 */
 .consent-more:hover { color: var(--seobu); }
 
 .form-status { min-height: 1.5em; font-size: 0.9375rem; font-weight: 700; }
