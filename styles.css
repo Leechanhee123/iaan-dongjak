@@ -709,6 +709,9 @@ h2 b { font-weight: 700; color: var(--rose-deep); }
      .reveal--still     자신은 그대로, 안쪽 제목은 어절 단위로 올라오고 나머지는 떠오름
    스크립트가 꺼져 있거나 '동작 줄이기' 설정이면 처음부터 전부 보인다.
    스크립트는 켜져 있는데 main.js 가 못 돌면(html.io 가 안 붙음) 4초 뒤 그냥 보여준다. */
+/* 움직이는 동안 화면 밖으로 나간 부분(slide 의 오른쪽 4rem, stamp 의 확대 등)이 페이지 폭을 늘리면
+   휴대폰 브라우저가 화면을 축소했다가 되돌린다. hidden 은 sticky 를 깨므로 clip */
+main { overflow-x: clip; }
 @keyframes rise { from { opacity: 0; transform: translateY(2.5rem); } }
 @keyframes wipe { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0); } }
 @keyframes settle { from { transform: scale(1.16); } }
