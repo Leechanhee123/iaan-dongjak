@@ -196,7 +196,9 @@ Pages 는 `gh-pages` 브랜치를 내보낸다. 이 브랜치에는 `site/` 안�
 
 **다른 사람에게 넘길 때**
 
-1. 저장소: Settings > General > Transfer ownership 으로 넘긴다.
+1. 저장소: Settings > General > Transfer ownership 으로 넘긴다. 받는 사람이 메일로 하루 안에 수락해야 하고,
+   넘긴 쪽 계정은 자동으로 공동작업자(쓰기)가 되어 계속 고치고 반영할 수 있다. 넘긴 뒤 로컬에서
+   `git remote set-url origin https://github.com/<받는 사람 아이디>/iaan-dongjak.git` (옛 주소도 당분간 자동으로 넘어간다).
 2. 가비아 DNS 의 `www` CNAME 값을 `<받는 사람 아이디>.github.io.` 로 바꾼다. Settings > Pages 에서 도메인과 HTTPS 가 살아 있는지 본다.
 3. 접수 시트: 공유 > 소유권 이전으로 넘긴다(쌓인 접수가 그대로 간다). 지금 웹 앱은 넘긴 사람 계정으로 돌기 때문에,
    받는 사람이 시트의 Apps Script 에서 **배포 > 새 배포**(웹 앱, 실행 계정 나, 모든 사용자)를 하고 새 주소로 폼을 바꾼다("사이트에 연결하기").
