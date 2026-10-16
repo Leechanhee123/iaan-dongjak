@@ -172,7 +172,7 @@ python -m http.server 8765
 
 ## 저장소와 배포
 
-- 저장소: https://github.com/Leechanhee123/iaan-dongjak (지금은 public)
+- 저장소: https://github.com/iaandj01-ops/iaan-dongjak (지금은 public, 2026-10-16 Leechanhee123 에서 넘겨받음. Leechanhee123 은 공동작업자)
 - 사이트: https://www.신상도역이안동작.com (GitHub Pages, 가비아에서 2026-10-16 등록)
 
 Pages 는 `gh-pages` 브랜치를 내보낸다. 이 브랜치에는 `site/` 안의 파일만 들어 있다.
@@ -186,7 +186,7 @@ Pages 는 `gh-pages` 브랜치를 내보낸다. 이 브랜치에는 `site/` 안�
 
   | 타입 | 호스트 | 값 |
   |---|---|---|
-  | CNAME | `www` | `leechanhee123.github.io.` |
+  | CNAME | `www` | `iaandj01-ops.github.io.` |
   | A | `@` | `185.199.108.153` |
   | A | `@` | `185.199.109.153` |
   | A | `@` | `185.199.110.153` |
