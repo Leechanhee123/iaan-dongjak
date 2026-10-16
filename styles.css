@@ -102,12 +102,13 @@ button, input, select { font: inherit; color: inherit; }
 .btn:active { transform: translateY(1px); }
 .btn:focus-visible { outline-offset: -4px; outline-color: var(--midnight); }
 .btn--sun { background: var(--sun); color: var(--midnight); }
-.btn--sun:hover { background: #fff; }
+/* :hover 는 전부 (hover: hover) 안에 둔다. 휴대폰은 누른 뒤에도 hover 가 남아, 흰 바탕의 등록 버튼이 흰색이 되어 사라져 보였다 */
+@media (hover: hover) { .btn--sun:hover { background: #fff; } }
 .btn--ghost { background: rgb(255 255 255 / 0.14); color: #fff; font-family: var(--font-num); font-size: 1.15em; }
-.btn--ghost:hover { background: #fff; color: var(--midnight); }
+@media (hover: hover) { .btn--ghost:hover { background: #fff; color: var(--midnight); } }
 .btn--ghost:focus-visible { outline-color: var(--sun); }
 .btn--ink { background: var(--midnight); color: #fff; }
-.btn--ink:hover { background: var(--seobu); }
+@media (hover: hover) { .btn--ink:hover { background: var(--seobu); } }
 /* 어두운 버튼 위에서는 포커스 테두리를 밝게 */
 .btn--ink:focus-visible { outline-color: var(--sun); }
 .btn--block { width: 100%; }
@@ -122,9 +123,9 @@ button, input, select { font: inherit; color: inherit; }
   transform: translateX(-100%);
 }
 .cta::after { content: "\2192"; font-family: var(--font-num); }
-.btn.cta:hover { background: var(--midnight); color: var(--sun); }
+@media (hover: hover) { .btn.cta:hover { background: var(--midnight); color: var(--sun); } }
 .btn.cta:focus-visible { outline-color: var(--midnight); }
-.btn.cta:hover:focus-visible { outline-color: var(--sun); }
+@media (hover: hover) { .btn.cta:hover:focus-visible { outline-color: var(--sun); } }
 
 .tag {
   display: inline-block; padding: 0.3em 1.3em 0.35em 0.9em;
@@ -143,7 +144,7 @@ button, input, select { font: inherit; color: inherit; }
 /* 글자만 한 줄이라 손가락으로 누르기 좁다. 보이는 모양은 그대로 두고 누를 수 있는 높이만 44px 쯤으로 넓힌다 */
 .text-link::before { content: ""; position: absolute; inset: -0.55rem 0; }
 .text-link::after { content: "→"; font-family: var(--font-num); }
-.text-link:hover { gap: 0.75em; color: var(--seobu); }
+@media (hover: hover) { .text-link:hover { gap: 0.75em; color: var(--seobu); } }
 
 /* 노선 배지 */
 .line {
@@ -178,13 +179,13 @@ button, input, select { font: inherit; color: inherit; }
   --run: var(--line7);
 }
 
-.brand { display: flex; align-items: center; gap: 0.6rem; flex: none; }
+.brand { display: flex; align-self: stretch; align-items: center; gap: 0.6rem; flex: none; } /* 헤더 높이만큼 누를 수 있게 */
 .brand-mark { width: 3.9rem; height: auto; }
 .brand-name { font-size: 1.02rem; font-weight: 700; letter-spacing: -0.03em; white-space: nowrap; }
 
 .header-actions { display: flex; align-items: center; gap: 0.5rem; margin-left: auto; }
 .header-tel {
-  display: flex; align-items: center; gap: 0.4rem;
+  display: flex; align-items: center; gap: 0.4rem; padding: 0.125rem; margin: -0.125rem; /* 동그라미 2.5rem 둘레로 누르는 영역만 44px */
   font: 700 1.3rem / 1 var(--font-num);
 }
 .header-tel svg { width: 2.5rem; height: 2.5rem; padding: 0.6rem; border-radius: 50%; background: rgb(255 255 255 / 0.16); }
@@ -263,7 +264,7 @@ button, input, select { font: inherit; color: inherit; }
   box-shadow: 0 0 0 4px rgb(248 176 24 / 0.28);
 }
 .route ol a[aria-current] { font-weight: 700; }
-.route ol a:hover::before { transform: scale(1.3); }
+@media (hover: hover) { .route ol a:hover::before { transform: scale(1.3); } }
 .route-cta { margin-top: 2rem; }
 
 @media (min-width: 48rem) {
@@ -289,8 +290,8 @@ button, input, select { font: inherit; color: inherit; }
     font-size: 0.875rem; font-weight: 500; white-space: nowrap;
   }
   .route ol a::before { width: 0.7rem; height: 0.7rem; }
-  .route ol a:not([aria-current]):hover { color: var(--amber); }
-  .is-solid .route ol a:not([aria-current]):hover { color: var(--line7); }
+  @media (hover: hover) { .route ol a:not([aria-current]):hover { color: var(--amber); } }
+  @media (hover: hover) { .is-solid .route ol a:not([aria-current]):hover { color: var(--line7); } }
 }
 /* 등록 버튼은 메뉴·전화번호와 나란히 들어갈 폭(1280px)부터, 역 간격은 그보다 넓을 때만 벌린다 */
 @media (min-width: 80rem) { .header-cta { display: inline-flex; } }
@@ -315,7 +316,7 @@ h2 b { font-weight: 700; color: var(--rose-deep); }
 /* 이미지컷: 인쇄물에 실린 참고 사진. 오른쪽 아래에 표시가 붙는다 */
 .cut { position: relative; overflow: hidden; }
 .cut img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s var(--ease); }
-.cut:hover img { transform: scale(1.04); }
+@media (hover: hover) { .cut:hover img { transform: scale(1.04); } }
 .cut figcaption {
   position: absolute; right: 0; bottom: 0; padding: 0.1rem 0.45rem 0.15rem;
   background: rgb(31 38 52 / 0.78); color: #fff; font-size: 0.6875rem; line-height: 1.5;
@@ -324,7 +325,7 @@ h2 b { font-weight: 700; color: var(--rose-deep); }
 /* 확대 링크 */
 .zoom { position: relative; display: block; overflow: hidden; }
 .zoom img { width: 100%; transition: transform 0.6s var(--ease); }
-.zoom:hover img { transform: scale(1.015); }
+@media (hover: hover) { .zoom:hover img { transform: scale(1.015); } }
 .zoom-hint {
   position: absolute; right: 0; bottom: 0;
   padding: 0.5rem 0.9rem 0.5rem 1.3rem;
@@ -332,7 +333,7 @@ h2 b { font-weight: 700; color: var(--rose-deep); }
   clip-path: polygon(0.8rem 0, 100% 0, 100% 100%, 0 100%, 0 0.8rem);
   transition: background-color var(--fast), color var(--fast);
 }
-.zoom:hover .zoom-hint { background: var(--sun); color: var(--midnight); }
+@media (hover: hover) { .zoom:hover .zoom-hint { background: var(--sun); color: var(--midnight); } }
 
 /* ── 서브페이지 이동 헤더: 앞 역 ── ● 현재 역 ── 다음 역 ──
    전체 헤더(흰 바탕, 화면에 고정) 바로 아래에 붙는 별도의 한 줄. 스크롤하면 같이 올라간다. */
@@ -354,14 +355,14 @@ h2 b { font-weight: 700; color: var(--rose-deep); }
   background: var(--amber); box-shadow: 0 0 0 4px rgb(248 176 24 / 0.28);
 }
 .station a {
-  display: inline-flex; align-items: center; gap: 0.45rem; padding-block: 0.75rem;
+  display: inline-flex; align-items: center; gap: 0.45rem; min-width: 2.75rem; padding-block: 0.75rem; /* min-width: 짧은 '← 홈' 도 44px */
   font-size: 0.875rem; font-weight: 500; white-space: nowrap; color: rgb(255 255 255 / 0.78);
   transition: color var(--fast), gap 0.3s var(--ease);
 }
 .station a:first-child::before, .station a:last-child::after { font-family: var(--font-num); }
 .station a:first-child::before { content: "\2190"; }
 .station a:last-child::after { content: "\2192"; }
-.station a:hover { color: var(--sun); gap: 0.8rem; }
+@media (hover: hover) { .station a:hover { color: var(--sun); gap: 0.8rem; } }
 
 /* ── 서브페이지 끝: 다음 역 + 등록 ───────────── */
 /* 푸터(어두운 바탕, 전화번호)와 겹쳐 보이지 않게 밝고 얇은 띠로 둔다. 전화번호는 바로 아래 푸터에만. */
@@ -379,7 +380,7 @@ h2 b { font-weight: 700; color: var(--rose-deep); }
   transition: gap 0.35s var(--ease), color var(--fast);
 }
 .next-stop strong::after { content: "\2192"; font-family: var(--font-num); }
-.next-stop:hover strong { gap: 1.4rem; color: var(--seobu); }
+@media (hover: hover) { .next-stop:hover strong { gap: 1.4rem; color: var(--seobu); } }
 .page-foot .cta { min-height: 4rem; padding: 0 2.5rem; font-size: clamp(1.1rem, 1rem + 0.5vw, 1.3rem); }
 
 /* ── 사업개요 ───────────────────────────────── */
@@ -448,7 +449,7 @@ h2 b { font-weight: 700; color: var(--rose-deep); }
     right: auto; left: 0; padding: 0 0 0.1em; background: none; color: var(--midnight);
     clip-path: none; border-bottom: 1px solid currentColor;
   }
-  .map .zoom:hover .zoom-hint { background: none; color: var(--seobu); }
+  @media (hover: hover) { .map .zoom:hover .zoom-hint { background: none; color: var(--seobu); } }
   .merits { grid-template-columns: 1fr 1fr; }
 }
 @media (min-width: 48rem) {
@@ -486,10 +487,10 @@ h2 b { font-weight: 700; color: var(--rose-deep); }
 }
 .benefits li:nth-child(odd) { border-right: 1px dotted rgb(255 255 255 / 0.4); }
 .benefits li:nth-last-child(-n + 2) { border-bottom: 0; }
-.benefits li:hover { background: rgb(255 255 255 / 0.05); }
+@media (hover: hover) { .benefits li:hover { background: rgb(255 255 255 / 0.05); } }
 .benefits h3 { font-size: clamp(1.25rem, 0.95rem + 1.5vw, 2rem); font-weight: 700; letter-spacing: -0.05em; color: var(--rose-pale); }
 .benefits i { font-style: normal; color: var(--sun); display: inline-block; transition: transform 0.4s var(--ease); }
-.benefits li:hover i { transform: scale(1.25) rotate(-6deg); }
+@media (hover: hover) { .benefits li:hover i { transform: scale(1.25) rotate(-6deg); } }
 .benefits p { margin-top: 0.6rem; font-size: clamp(0.9375rem, 0.85rem + 0.5vw, 1.2rem); line-height: 1.5; letter-spacing: -0.03em; }
 
 @media (min-width: 64rem) {
@@ -555,7 +556,7 @@ h2 b { font-weight: 700; color: var(--rose-deep); }
 }
 .unit-tabs .num { font-size: clamp(1.3rem, 0.8rem + 2.4vw, 2.5rem); font-weight: 600; line-height: 1; }
 .unit-tabs small { font-size: 0.8125rem; color: var(--ink-soft); }
-.unit-tabs label:hover { background: var(--sky); }
+@media (hover: hover) { .unit-tabs label:hover { background: var(--sky); } }
 
 .unit-panel { display: none; }
 #u-59a:checked ~ .unit-panels [data-type="59a"],
@@ -630,7 +631,7 @@ h2 b { font-weight: 700; color: var(--rose-deep); }
 .snaps figure:first-child { grid-row: span 2; }
 .facilities { border-top: 2px solid var(--midnight); }
 .facilities li { display: grid; gap: 0.35rem; padding: 1.35rem 0; border-bottom: 1px solid #e3d9d4; transition: padding-left 0.35s var(--ease); }
-.facilities li:hover { padding-left: 0.75rem; }
+@media (hover: hover) { .facilities li:hover { padding-left: 0.75rem; } }
 .facilities h3 { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.04em; color: var(--rose-deep); }
 .facilities p { font-size: 0.9375rem; color: var(--ink-soft); }
 
